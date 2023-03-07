@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class EnemyPatrolling : MonoBehaviour
 {
-
     public float speed;
     Rigidbody2D enemyRigidBody;
-
+    public bool allowedToMove = true;
 
     void Start()
     {
@@ -16,22 +15,34 @@ public class EnemyPatrolling : MonoBehaviour
 
     void Update()
     {
-        if(IsFacingRight())
+        if (IsFacingRight() && allowedToMove)
         {
             enemyRigidBody.velocity = new Vector2(speed, 0f);
-        } else {
+        }
+        else if (allowedToMove)
+        {
             enemyRigidBody.velocity = new Vector2(-speed, 0f);
+        }
+    }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        transform.localScale = new Vector2(-(Mathf.Sign(enemyRigidBody.velocity.x)), transform.localScale.y);
+        if (collision.gameObject.layer == 7)
+        {
+            Debug.Log("monke");
+            allowedToMove = false;
+            enemyRigidBody.velocity = Vector2.zero;
+        }
+        else
+        {
+            transform.localScale = new Vector2(-(Mathf.Sign(enemyRigidBody.velocity.x)), transform.localScale.y);
+            allowedToMove = true;
         }
     }
 
     private bool IsFacingRight()
     {
         return transform.localScale.x > Mathf.Epsilon;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        transform.localScale = new Vector2(-(Mathf.Sign(enemyRigidBody.velocity.x)) * 5, transform.localScale.y);
     }
 }
