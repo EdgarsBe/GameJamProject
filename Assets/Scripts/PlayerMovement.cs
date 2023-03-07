@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
+    private Animator anim;
     private float horizontal;
     private bool isFacingRight = true;
+    private enum MovementState { idle, running, jump, fall }
 
     public float speed = 6f;
     public float jumpingPower = 8f;
@@ -14,6 +15,10 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundLayer;
 
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
     void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
@@ -25,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
 
 
         FlipCharacter();
+        AnimationState();
     }
 
     private void FixedUpdate()
@@ -44,6 +50,35 @@ public class PlayerMovement : MonoBehaviour
             isFacingRight = !isFacingRight;
             transform.Rotate(0f, 180f, 0f);
         }
+    }
+
+    private void AnimationState()
+    {
+        MovementState state;
+
+        if (horizontal < 0f)
+        {
+            state = MovementState.running;
+        }
+        else if (horizontal > 0f)
+        {
+            state = MovementState.running;
+        }
+        else 
+        {
+            state = MovementState.idle;
+        }
+
+        if (rb.velocity.y > .1f)
+        {
+            state = MovementState.jump;
+        }
+        else if (rb.velocity.y < -.1f)
+        {
+            state = MovementState.fall;
+        }
+
+        anim.SetInteger("State", (int)state);
     }
 
 }
