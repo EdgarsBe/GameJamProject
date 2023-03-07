@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 50834404}
   m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -231,7 +231,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 50834396}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.3, y: -0.38, z: -0.04221003}
+  m_LocalPosition: {x: -2.76, y: -0.43, z: -0.04221003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -299,6 +299,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!61 &50834404
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2504,7 +2505,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1930459749}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.57, y: -0.47, z: -0.008760523}
+  m_LocalPosition: {x: -8.79, y: -0.32, z: -0.008760523}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2603,8 +2604,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d6d64cfc45982845ac2bb46f58d83e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
-  allowedToMove: 0
+  speed: 4
+  enemyRigidBody: {fileID: 0}
 --- !u!50 &1930459754
 Rigidbody2D:
   serializedVersion: 4
@@ -2622,9 +2623,9 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!114 &1930459755
 MonoBehaviour:
@@ -2638,9 +2639,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdef1e1200e279f4ebe53afd462778d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  castSpell: 0
   firePoint: {fileID: 866062735}
   Spell: {fileID: 4892985364501057468, guid: e3a0eb6669b6383439db1fff07b78648, type: 3}
-  player: {fileID: 50834400}
-  castPoint: {fileID: 1673514440}
-  shootRange: 5
+  player: {fileID: 50834396}
+  castPoint: {fileID: 1673514439}
+  seeRange: 0
+  speed: 3
+  delay: 3

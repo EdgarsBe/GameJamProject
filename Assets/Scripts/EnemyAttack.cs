@@ -4,15 +4,20 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
-{
-    public bool castSpell = false;
-    public Transform firePoint;
-    public GameObject Spell;
-    public Transform player;
-    public Transform castPoint;
-    public float shootRange;
-    bool isFacingRight;
+{ 
+    [SerializeField] Transform firePoint;
+    [SerializeField] GameObject Spell;
+    [SerializeField] GameObject player;
+    [SerializeField] GameObject castPoint;
+    [SerializeField] float seeRange;
+    [SerializeField] float speed;
+    private bool isFacingRight;
     Rigidbody2D rb2d;
+    private float movingDirection;
+    [SerializeField] int delay = 3;
+    float timer;
+    private bool spellCooldown = false;
+
 
     public void Start()
     {
@@ -21,54 +26,88 @@ public class EnemyAttack : MonoBehaviour
 
     void Update()
     {
-        float distToPlayer = Vector2.Distance(transform.position, player.position);
 
-        if (CanSeePlayer(shootRange)) // If within shooting distance - shoots
+        float distToPlayer = Vector2.Distance(transform.position, player.transform.position);
+
+        if (distToPlayer < 3f)
         {
-            ShootPlayer();
+            rb2d.constraints = RigidbodyConstraints2D.FreezePositionX;
+            Cast();
         }
+        else
+        {
+            rb2d.constraints = RigidbodyConstraints2D.None;
+        }
+
+        /*if (CanSeePlayer(seeRange))
+        {
+            ChasePlayer();
+        }*/
 
     }
 
     bool CanSeePlayer(float distance)
     {
         bool val = false;
-        float castDist = -distance;
-        
-        Vector2 endPos = castPoint.position + Vector3.right * distance;
-        RaycastHit2D hit = Physics2D.Linecast(castPoint.position, endPos, 1 << LayerMask.NameToLayer("Action"));
+        float castDist = distance;
+
+        if (!isFacingRight)
+        {
+            castDist = -distance;
+        }
+
+
+
+        movingDirection = transform.localScale.x;
+        Vector2 endPos = castPoint.transform.position + Vector3.right * castDist * movingDirection;
+        RaycastHit2D hit = Physics2D.Linecast(castPoint.transform.position, endPos, 1 << LayerMask.NameToLayer("Action"));
 
         if (hit.collider != null)
         {
-            if(hit.collider.gameObject.CompareTag("Player"))
+            if (hit.collider.gameObject.CompareTag("Player"))
             {
                 val = true;
             }
-            val = false;
+            else
+            {
+                val = false;
+            }
+
+            Debug.DrawLine(castPoint.transform.position, hit.point, Color.red);
+
+        } else
+        {
+            Debug.DrawLine(castPoint.transform.position, endPos, Color.white);
         }
-        
-        Debug.DrawLine(castPoint.position, endPos, Color.white);
 
         return val;
     } 
 
-    void ShootPlayer()
+    /*void ChasePlayer()
     {
-        if (transform.position.x < player.position.x)
+        if (transform.position.x < player.transform.position.x)
         {
+            rb2d.velocity = new Vector2(speed, 0);
             transform.localScale = new Vector2(1, 1);
             isFacingRight = true;
         }
         else
         {
+            rb2d.velocity = new Vector2(-speed, 0);
             transform.localScale = new Vector2(-1, 1);
             isFacingRight = false;
         }
-    }
+    }*/
 
     public void Cast()
     {
-        Instantiate(Spell, firePoint.position, firePoint.rotation);
+        timer += Time.deltaTime;
+        if (timer > delay)
+        {
+            Instantiate(Spell, firePoint.position, firePoint.rotation);
+            spellCooldown = true;
+            timer = 0;
+        }
     }
 
 }

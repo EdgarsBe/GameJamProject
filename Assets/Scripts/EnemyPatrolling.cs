@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class EnemyPatrolling : MonoBehaviour
 {
-    public float speed;
-    Rigidbody2D enemyRigidBody;
-    public bool allowedToMove = true;
+    [SerializeField] float speed;
+    [SerializeField] Rigidbody2D enemyRigidBody;
 
     void Start()
     {
@@ -15,11 +14,11 @@ public class EnemyPatrolling : MonoBehaviour
 
     void Update()
     {
-        if (IsFacingRight() && allowedToMove)
+        if (IsFacingRight())
         {
             enemyRigidBody.velocity = new Vector2(speed, 0f);
         }
-        else if (allowedToMove)
+        else
         {
             enemyRigidBody.velocity = new Vector2(-speed, 0f);
         }
@@ -27,18 +26,8 @@ public class EnemyPatrolling : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Physics2D.IgnoreLayerCollision(8, 9);
         transform.localScale = new Vector2(-(Mathf.Sign(enemyRigidBody.velocity.x)), transform.localScale.y);
-        if (collision.gameObject.layer == 7)
-        {
-            Debug.Log("monke");
-            allowedToMove = false;
-            enemyRigidBody.velocity = Vector2.zero;
-        }
-        else
-        {
-            transform.localScale = new Vector2(-(Mathf.Sign(enemyRigidBody.velocity.x)), transform.localScale.y);
-            allowedToMove = true;
-        }
     }
 
     private bool IsFacingRight()
