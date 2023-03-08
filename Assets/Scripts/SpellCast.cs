@@ -8,19 +8,24 @@ public class SpellCast : MonoBehaviour
     public GameObject FireSpell;
     public GameObject IceSpell;
     public GameObject LightningSpell;
+    public PlayerMovement Player;
+
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if(Player.canMove)
         {
-            Cast1();
-        }
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            Cast2();
-        }
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            Cast3();
+            if (Input.GetButtonDown("Fire1"))
+            {
+                Cast1();
+            }
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                Cast2();
+            }
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                Cast3();
+            }
         }
     }
 
