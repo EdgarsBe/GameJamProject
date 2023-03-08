@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SpellCast : MonoBehaviour
 {
+    public float SpellDelay;
+    private float nextFire;
     public Transform firePoint;
     public GameObject FireSpell;
     public GameObject IceSpell;
@@ -31,14 +33,26 @@ public class SpellCast : MonoBehaviour
 
     void Cast1() 
     {
-        Instantiate(FireSpell, firePoint.position, firePoint.rotation);
+        if (Time.time > nextFire)
+        {
+            nextFire = Time.time + SpellDelay;
+            Instantiate(FireSpell, firePoint.position, firePoint.rotation);
+        }
     }
     void Cast2()
     {
-        Instantiate(IceSpell, firePoint.position, firePoint.rotation);
+        if (Time.time > nextFire)
+        {
+            nextFire = Time.time + SpellDelay;
+            Instantiate(IceSpell, firePoint.position, firePoint.rotation);
+        }
     }
     void Cast3()
     {
-        Instantiate(LightningSpell, firePoint.position, firePoint.rotation);
+        if (Time.time > nextFire)
+        {
+            nextFire = Time.time + SpellDelay;
+            Instantiate(LightningSpell, firePoint.position, firePoint.rotation);
+        }
     }
 }

@@ -181,3 +181,4 @@ MonoBehaviour:
   range: 1
   impactEffect: {fileID: 8966220930860917961, guid: 225cee2faa3dfcd4db7c1e148785aee5, type: 3}
   rb: {fileID: 6502617655045928025}
+  SpellDelay: 2
