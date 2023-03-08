@@ -14,6 +14,9 @@ public class EnemyPatrolling : MonoBehaviour
 
     void Update()
     {
+        Physics2D.IgnoreLayerCollision(8, 9);
+        Physics2D.IgnoreLayerCollision(8, 7);
+
         if (IsFacingRight())
         {
             enemyRigidBody.velocity = new Vector2(speed, 0f);
@@ -26,7 +29,6 @@ public class EnemyPatrolling : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Physics2D.IgnoreLayerCollision(8, 9);
         transform.localScale = new Vector2(-(Mathf.Sign(enemyRigidBody.velocity.x)), transform.localScale.y);
     }
 

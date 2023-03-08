@@ -2,21 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class EnemyAttack : MonoBehaviour
-{ 
+{
     [SerializeField] Transform firePoint;
     [SerializeField] GameObject Spell;
     [SerializeField] GameObject player;
     [SerializeField] GameObject castPoint;
     [SerializeField] float seeRange;
+    [SerializeField] float castRange;
     [SerializeField] float speed;
-    private bool isFacingRight;
+    [SerializeField] LayerMask maskDetection;
+    [SerializeField] LayerMask maskSpell;
     Rigidbody2D rb2d;
     private float movingDirection;
     [SerializeField] int delay = 3;
     float timer;
-    private bool spellCooldown = false;
 
 
     public void Start()
@@ -26,88 +28,72 @@ public class EnemyAttack : MonoBehaviour
 
     void Update()
     {
-
+        Physics2D.IgnoreLayerCollision(8, 9);
         float distToPlayer = Vector2.Distance(transform.position, player.transform.position);
 
-        if (distToPlayer < 3f)
+        if (CanSeePlayer(seeRange))
         {
-            rb2d.constraints = RigidbodyConstraints2D.FreezePositionX;
-            Cast();
+            RaycastHit2D hit = Physics2D.Raycast(firePoint.position, Vector3.right * this.transform.localScale.x, castRange, maskSpell);
+
+            Debug.DrawRay(firePoint.position, Vector3.right * castRange * this.transform.localScale.x);
+
+            if (hit.collider != null && hit.collider.gameObject.GetComponent<PlayerMovement>())
+            {
+                Cast();
+            }
         }
         else
         {
             rb2d.constraints = RigidbodyConstraints2D.None;
         }
 
-        /*if (CanSeePlayer(seeRange))
-        {
-            ChasePlayer();
-        }*/
+
 
     }
 
     bool CanSeePlayer(float distance)
     {
         bool val = false;
-        float castDist = distance;
-
-        if (!isFacingRight)
-        {
-            castDist = -distance;
-        }
-
-
-
         movingDirection = transform.localScale.x;
-        Vector2 endPos = castPoint.transform.position + Vector3.right * castDist * movingDirection;
-        RaycastHit2D hit = Physics2D.Linecast(castPoint.transform.position, endPos, 1 << LayerMask.NameToLayer("Action"));
+        transform.localScale = new Vector2(movingDirection, 1f);
+        RaycastHit2D hit = Physics2D.Raycast(castPoint.transform.position, Vector3.right * this.transform.localScale.x, seeRange, maskDetection);
 
         if (hit.collider != null)
         {
-            if (hit.collider.gameObject.CompareTag("Player"))
+            if (hit.collider.gameObject.GetComponent<PlayerMovement>())
             {
+                Debug.Log("HIT PLAYER");
                 val = true;
             }
             else
             {
                 val = false;
             }
-
-            Debug.DrawLine(castPoint.transform.position, hit.point, Color.red);
-
-        } else
-        {
-            Debug.DrawLine(castPoint.transform.position, endPos, Color.white);
         }
 
         return val;
-    } 
-
-    /*void ChasePlayer()
-    {
-        if (transform.position.x < player.transform.position.x)
-        {
-            rb2d.velocity = new Vector2(speed, 0);
-            transform.localScale = new Vector2(1, 1);
-            isFacingRight = true;
-        }
-        else
-        {
-            rb2d.velocity = new Vector2(-speed, 0);
-            transform.localScale = new Vector2(-1, 1);
-            isFacingRight = false;
-        }
-    }*/
+    }
 
     public void Cast()
     {
+        rb2d.constraints = RigidbodyConstraints2D.FreezePositionX;
         timer += Time.deltaTime;
         if (timer > delay)
         {
+            if (transform.localScale.x < 1f)
+            {
+                GameObject.Find("SpellPoint").transform.eulerAngles = new Vector3(0, 180, 0);
+            }
             Instantiate(Spell, firePoint.position, firePoint.rotation);
-            spellCooldown = true;
             timer = 0;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawRay(castPoint.transform.position, Vector3.right * seeRange * this.transform.localScale.x);
     }
 
 }
