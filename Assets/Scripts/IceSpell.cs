@@ -12,8 +12,8 @@ public class IceSpell : MonoBehaviour
 
     void Start()
     {
-        rb.velocity = transform.right * speed;
-        Invoke("Range", range);
+            rb.velocity = transform.right * speed;
+            Invoke("Range", range);    
     }
 
     void Range()

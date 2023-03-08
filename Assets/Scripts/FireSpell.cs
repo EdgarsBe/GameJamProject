@@ -9,10 +9,11 @@ public class FireSpell : MonoBehaviour
     public Rigidbody2D rb;
     public GameObject impactEffect;
     public int damage = 5;
+
     void Start()
     {
-        rb.velocity = transform.right * speed;
-        Invoke("Range", range);
+            rb.velocity = transform.right * speed;
+            Invoke("Range", range);
     }
 
     private void Update()
