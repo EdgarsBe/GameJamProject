@@ -231,7 +231,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 50834396}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.76, y: -0.43, z: -0.04221003}
+  m_LocalPosition: {x: -1.79, y: -0.35, z: -0.04221003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -299,7 +299,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!61 &50834404
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -380,7 +379,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8.953879
+  orthographic size: 3.0794427
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2406,8 +2405,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 866062734}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.309, y: -0.085, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.495, y: -0.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2469,7 +2468,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1673514439}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.013999939, y: 0, z: 0}
+  m_LocalPosition: {x: 0.495, y: 0.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2527,7 +2526,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.003950596, y: -0.02249673}
+  m_Offset: {x: -0.025733948, y: -0.02249673}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2538,7 +2537,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6308985, y: 0.9873132}
+  m_Size: {x: 0.4209919, y: 0.9873132}
   m_EdgeRadius: 0
 --- !u!212 &1930459752
 SpriteRenderer:
@@ -2605,7 +2604,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
-  enemyRigidBody: {fileID: 0}
+  enemyRigidBody: {fileID: 1930459754}
 --- !u!50 &1930459754
 Rigidbody2D:
   serializedVersion: 4
@@ -2624,9 +2623,9 @@ Rigidbody2D:
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 1
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &1930459755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2643,6 +2642,13 @@ MonoBehaviour:
   Spell: {fileID: 4892985364501057468, guid: e3a0eb6669b6383439db1fff07b78648, type: 3}
   player: {fileID: 50834396}
   castPoint: {fileID: 1673514439}
-  seeRange: 0
+  seeRange: 5.8
+  castRange: 4
   speed: 3
+  maskDetection:
+    serializedVersion: 2
+    m_Bits: 1271
+  maskSpell:
+    serializedVersion: 2
+    m_Bits: 128
   delay: 3
