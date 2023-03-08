@@ -32,10 +32,21 @@ public class SlimeAI : MonoBehaviour
     private Animator slimeAnim;
 
     // Start is called before the first frame update
+    private void OnEnable()
+    {
+        Health.GameOver += DisableMovement;
+    }
+
+    private void OnDisable()
+    {
+        Health.GameOver -= DisableMovement;
+    }
+
     void Start()
     {
         enemyRG = GetComponent<Rigidbody2D>();
         slimeAnim = GetComponent<Animator>();
+        EnableMovement();
     }
 
     // Update is called once per frame
@@ -102,6 +113,18 @@ public class SlimeAI : MonoBehaviour
     {
         slimeAnim.SetBool("canSeePlayer", canSeePlayer);
         slimeAnim.SetBool("isGrounded", isGrounded);
+    }
+
+    private void DisableMovement()
+    { 
+        slimeAnim.enabled = false;
+        enemyRG.bodyType = RigidbodyType2D.Static;
+    }
+
+    private void EnableMovement()
+    {
+        slimeAnim.enabled = true;
+        enemyRG.bodyType = RigidbodyType2D.Dynamic;
     }
 
     private void OnDrawGizmosSelected()

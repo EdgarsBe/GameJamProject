@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ public class Health : MonoBehaviour
 {
     public int health;
     public int NumOfHearts;
+    public static event Action GameOver;
+    public PlayerMovement Move;
 
     public Image[] hearts;
     public Sprite Heart;
@@ -46,7 +49,9 @@ public class Health : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            Destroy(gameObject);
+            Move.canMove = false;
+            Time.timeScale = 0;
+            GameOver?.Invoke();
         }
     }
 }
