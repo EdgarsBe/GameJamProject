@@ -62,7 +62,6 @@ public class EnemyAttack : MonoBehaviour
         {
             if (hit.collider.gameObject.GetComponent<PlayerMovement>())
             {
-                Debug.Log("HIT PLAYER");
                 val = true;
             }
             else
