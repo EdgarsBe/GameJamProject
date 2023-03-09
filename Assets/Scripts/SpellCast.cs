@@ -16,6 +16,9 @@ public class SpellCast : MonoBehaviour
     public GameObject LightningSpell;
     public PlayerMovement Player;
     private Animator CastAnim;
+    [SerializeField] private AudioSource fireSFX;
+    [SerializeField] private AudioSource iceSFX;
+    [SerializeField] private AudioSource lightningSFX;
 
     private void Start()
     {
@@ -44,6 +47,7 @@ public class SpellCast : MonoBehaviour
     {
         if (Time.time > nextFire)
         {
+            fireSFX.Play();
             CastAnim.SetBool("Pressed", true);
             nextFire = Time.time + SpellDelay;
             Instantiate(FireSpell, firePoint.position, firePoint.rotation);
@@ -54,6 +58,7 @@ public class SpellCast : MonoBehaviour
     {
         if (Time.time > nextFire2)
         {
+            iceSFX.Play();
             CastAnim.SetBool("Pressed", true);
             nextFire2 = Time.time + SpellDelay2;
             Instantiate(IceSpell, firePoint.position, firePoint.rotation);
@@ -64,6 +69,7 @@ public class SpellCast : MonoBehaviour
     {
         if (Time.time > nextFire3)
         {
+            lightningSFX.Play();
             CastAnim.SetBool("Pressed", true);
             nextFire3 = Time.time + SpellDelay3;
             Instantiate(LightningSpell, firePoint.position, firePoint.rotation);

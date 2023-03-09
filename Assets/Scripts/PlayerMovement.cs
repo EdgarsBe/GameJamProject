@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundLayer;
 
+    [SerializeField] private AudioSource JumpSFX;
+
     private void Start()
     {
         canMove = true;
@@ -27,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (canMove && Input.GetButtonDown("Jump") && IsGrounded())
         {
+            JumpSFX.Play();
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
         }
         FlipCharacter();
