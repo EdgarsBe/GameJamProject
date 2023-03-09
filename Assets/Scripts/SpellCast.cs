@@ -5,13 +5,22 @@ using UnityEngine;
 public class SpellCast : MonoBehaviour
 {
     public float SpellDelay;
+    public float SpellDelay2;
+    public float SpellDelay3;
     private float nextFire;
+    private float nextFire2;
+    private float nextFire3;
     public Transform firePoint;
     public GameObject FireSpell;
     public GameObject IceSpell;
     public GameObject LightningSpell;
     public PlayerMovement Player;
+    private Animator CastAnim;
 
+    private void Start()
+    {
+        CastAnim = GetComponent<Animator>();
+    }
     void Update()
     {
         if(Player.canMove)
@@ -35,24 +44,35 @@ public class SpellCast : MonoBehaviour
     {
         if (Time.time > nextFire)
         {
+            CastAnim.SetBool("Pressed", true);
             nextFire = Time.time + SpellDelay;
             Instantiate(FireSpell, firePoint.position, firePoint.rotation);
+            Invoke("AnimStop", 0.5f);
         }
     }
     void Cast2()
     {
-        if (Time.time > nextFire)
+        if (Time.time > nextFire2)
         {
-            nextFire = Time.time + SpellDelay;
+            CastAnim.SetBool("Pressed", true);
+            nextFire2 = Time.time + SpellDelay2;
             Instantiate(IceSpell, firePoint.position, firePoint.rotation);
+            Invoke("AnimStop", 0.5f);
         }
     }
     void Cast3()
     {
-        if (Time.time > nextFire)
+        if (Time.time > nextFire3)
         {
-            nextFire = Time.time + SpellDelay;
+            CastAnim.SetBool("Pressed", true);
+            nextFire3 = Time.time + SpellDelay3;
             Instantiate(LightningSpell, firePoint.position, firePoint.rotation);
+            Invoke("AnimStop", 0.5f);
         }
+    }
+
+    void AnimStop()
+    {
+        CastAnim.SetBool("Pressed", false);
     }
 }
