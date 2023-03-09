@@ -77,6 +77,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &1323621597453189051
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -183,5 +184,4 @@ MonoBehaviour:
   range: 1
   rb: {fileID: 62201298931617057}
   impactEffect: {fileID: 8430710617915902351, guid: 7249482470d1ad2458376901ccc2a1d1, type: 3}
-  damage: 3
-  SpellDelay: 3
+  damage: 2

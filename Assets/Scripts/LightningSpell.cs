@@ -9,8 +9,6 @@ public class LightningSpell : MonoBehaviour
     public float range = 1f;
     public GameObject impactEffect;
     public Rigidbody2D rb;
-    public float SpellDelay;
-    private float nextFire;
 
     void Start()
     {

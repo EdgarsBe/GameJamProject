@@ -77,6 +77,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &7742607350426314135
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -177,7 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
-  damage: 2
+  damage: 1
   range: 1
   impactEffect: {fileID: 8966220930860917961, guid: 225cee2faa3dfcd4db7c1e148785aee5, type: 3}
   rb: {fileID: 6502617655045928025}
