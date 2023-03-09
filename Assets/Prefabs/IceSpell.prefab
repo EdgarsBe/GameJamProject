@@ -184,3 +184,4 @@ MonoBehaviour:
   rb: {fileID: 62201298931617057}
   impactEffect: {fileID: 8430710617915902351, guid: 7249482470d1ad2458376901ccc2a1d1, type: 3}
   damage: 3
+  SpellDelay: 3
