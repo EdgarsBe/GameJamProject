@@ -5,14 +5,16 @@ using UnityEngine;
 public class TakeDamage : MonoBehaviour
 {
     [SerializeField] int damage;
-    public static float health;
+    [SerializeField] public float health;
     [SerializeField] float maxHealth = 5;
     public Health playerHealth;
+    public HealthBar HealthBar;
 
 
     private void Start()
     {
         health = maxHealth;
+        HealthBar.SetHealth(health, maxHealth);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -25,6 +27,7 @@ public class TakeDamage : MonoBehaviour
     public void GivenDamage(int TakenDamage)
     {
         health -= TakenDamage;
+        HealthBar.SetHealth(health, maxHealth);
         if (health <= 0)
         {
             Destroy(gameObject);

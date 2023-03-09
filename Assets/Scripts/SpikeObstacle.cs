@@ -11,8 +11,7 @@ public class SpikeObstacle : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("Player hit!");
-            Debug.Log(damage);
+             playerHealth.TakeDamage(damage);
         }
     }
 

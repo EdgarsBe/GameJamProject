@@ -1,22 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    Vector3 localScale;
+    public Slider Slider;
+    public Color low;
+    public Color high;
+    public Vector3 localScale;
 
     // Start is called before the first frame update
-    void Start()
+    public void SetHealth(float health, float maxHealth)
     {
-        localScale = transform.localScale;
-        
+        Slider.gameObject.SetActive(health < maxHealth);
+        Slider.value = health;
+        Slider.maxValue = maxHealth;
+        Slider.fillRect.GetComponentInChildren<Image>().color = Color.Lerp(low, high, Slider.normalizedValue);
     }
 
     // Update is called once per frame
     void Update()
     {
-        localScale.x = TakeDamage.health / 5;
-        transform.localScale = localScale;
+        Slider.transform.position = Camera.main.WorldToScreenPoint(transform.parent.position + localScale);
     }
 }

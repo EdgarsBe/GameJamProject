@@ -49,6 +49,11 @@ public class PigAI : MonoBehaviour
         EnableMovement();
     }
 
+    private void Update()
+    {
+        Physics2D.IgnoreLayerCollision(8,8);
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
